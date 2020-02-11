@@ -8,10 +8,14 @@ import { colors } from "../styleConfig";
  * The screen where organizers can log into the app
  */
 export default function Login() {
-  const { signIn } = useContext(AuthContext);
+  const { authAPI } = useContext(AuthContext);
   return (
     <Screen title="Login">
-      <Button onPress={signIn} title="Click me!" color={colors.primaryColor} />
+      <Button
+        onPress={authAPI.signIn}
+        title="Click me!"
+        color={colors.primaryColor}
+      />
     </Screen>
   );
 }
