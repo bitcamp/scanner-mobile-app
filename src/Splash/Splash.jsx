@@ -1,5 +1,6 @@
 import React from "react";
-import { ActivityIndicator, View, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
+import Loader from "../components/Loader";
 
 /**
  * The loading screen
@@ -7,7 +8,7 @@ import { ActivityIndicator, View, StyleSheet } from "react-native";
 export default function Splash() {
   return (
     <View style={styles.centerContent}>
-      <ActivityIndicator size="large" color="orange" />
+      <Loader />
     </View>
   );
 }
