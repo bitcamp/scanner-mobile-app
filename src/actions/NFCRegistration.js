@@ -1,3 +1,7 @@
+/* eslint-disable no-unused-vars */
+// This is disabled until we actually start using the arguments
+// passed into these functions
+
 /**
  * Validates a user's QR code
  *
@@ -18,7 +22,7 @@ export async function validateQRCode(qrData, authToken) {
 
   // TODO: remove this artificial delay
   await new Promise(resolve => {
-    setTimeout(resolve, 250);
+    setTimeout(resolve, 1000);
   });
 
   // Returns the user data
@@ -27,8 +31,6 @@ export async function validateQRCode(qrData, authToken) {
     minor: false,
     email: "danny@devito.com",
     id: "abcd123",
-    qrData,
-    authToken,
   };
 }
 
@@ -53,7 +55,7 @@ export async function registerNfcBand(userID, nfcData, authToken) {
 
   // TODO: remove this artificial delay
   await new Promise(resolve => {
-    setTimeout(resolve, 250);
+    setTimeout(resolve, 1000);
   });
 
   // Returns the user data

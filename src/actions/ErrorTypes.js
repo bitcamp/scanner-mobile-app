@@ -5,3 +5,6 @@ export class NetworkError extends Error {}
 
 /** To be used when there is an error due to improper credentials */
 export class AuthorizationError extends Error {}
+
+/** To be used when there is an error due to illegal arguments to a function */
+export class IllegalArgumentError extends Error {}
