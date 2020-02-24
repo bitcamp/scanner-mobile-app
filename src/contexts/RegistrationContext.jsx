@@ -7,8 +7,8 @@ import PropTypes from "prop-types";
 const RegistrationContext = createContext();
 
 /**
- * Provides the current registration state (i.e. activePage, userData) and
- * the dispatcher
+ * Provides the current state of the NFC registration flow and
+ * the dispatcher to any children
  */
 export function RegistrationProvider({ children }) {
   const [state, dispatch] = useReducer((prevState, action) => {
@@ -35,9 +35,6 @@ export function RegistrationProvider({ children }) {
           activePage: registrationPages.userDataReview,
         };
 
-      case registrationActions.nfcRegistrationSuccess:
-        return initialState;
-
       case registrationActions.confirmUserData:
         return {
           ...prevState,
@@ -51,10 +48,14 @@ export function RegistrationProvider({ children }) {
           errorInfo: action.errorInfo,
         };
 
+      case registrationActions.nfcRegistrationSuccess:
       case registrationActions.reset:
         return initialState;
 
       default:
+        // TODO: evaluate whether this is a sane case to throw an
+        // error or if printing to the console is appropriate
+        // eslint-disable-next-line no-console
         console.error("Passing an illegal registration action");
         return prevState;
     }
@@ -67,25 +68,39 @@ export function RegistrationProvider({ children }) {
   );
 }
 
-/** An enum with each of the possible pages in the registration flow */
+/** An enum with each of the possible pages in the NFC registration flow */
 export const registrationPages = {
+  /** The starting screen, where organizers can scan QR codes */
   qrScan: "QR SCANNER",
-  nfcScan: "NFC SCANNER",
+  /** The user info review screen, where organizers can make sure they're signing
+   *  in the correct user */
   userDataReview: "USER DATA REVIEW",
+  /** The NFC scanning screen, which should only be accessible after organizers
+   *  have validated a user's info (and checked their photo ID) */
+  nfcScan: "NFC SCANNER",
+  /** The loading screen */
   loading: "LOADING",
+  /** The error screen */
   error: "Error",
 };
 
 /** An enum with each type of action for this reducer */
 export const registrationActions = {
+  /** This action fires when qr validation starts */
   startValidatingQr: "START VALIDATING QR",
-  startRegisteringNfc: "START VALIDATING NFC",
+  /** This action fires when nfc registration starts */
+  startRegisteringNfc: "START REGISTERING NFC",
+  /** This action fires when qr validation succeeds */
   qrScanSuccess: "QR SCAN SUCCESS",
+  /** This action fires when nfc registration succeeds */
   nfcRegistrationSuccess: "NFC SCAN FAILURE",
+  /** This action fires when an organizer confirms the scanned user data */
   confirmUserData: "CONFIRM USER DATA",
+  /** This action fires when the registration flow is reset */
   reset: "RESET",
 };
 
+/** The initial state of the context */
 const initialState = {
   activePage: registrationPages.qrScan,
   userData: null,

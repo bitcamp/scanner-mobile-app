@@ -9,7 +9,7 @@ import { colors } from "../styleConfig";
 import { validateQRCode } from "../actions/NFCRegistration";
 
 /**
- * A QR code scanner
+ * A QR code scanner dialogue
  */
 export default function QRScanner() {
   const {

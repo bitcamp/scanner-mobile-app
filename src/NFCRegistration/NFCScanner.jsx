@@ -9,9 +9,9 @@ import { colors } from "../styleConfig";
 import { registerNfcBand } from "../actions/NFCRegistration";
 
 /**
- * A QR code scanner
+ * The NFC Scanning dialogue
  */
-export default function QRScanner() {
+export default function NFCScanner() {
   const {
     state: { userToken },
     dispatch,

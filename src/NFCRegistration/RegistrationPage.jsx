@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import RegistrationContext from "../contexts/RegistrationContext";
 
 /**
- * Only renders a page if its title matches the active title
+ * Only renders a page if its title matches the active title from the
+ * Registration Context
  */
 export default function RegistrationPage({ title, children }) {
   const {
@@ -15,7 +16,7 @@ export default function RegistrationPage({ title, children }) {
 
 RegistrationPage.propTypes = {
   title: PropTypes.string.isRequired,
-  // children: PropTypes.node,
+  children: PropTypes.node,
 };
 
 RegistrationPage.defaultProps = {

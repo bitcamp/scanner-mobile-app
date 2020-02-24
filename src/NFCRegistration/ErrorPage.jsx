@@ -6,6 +6,9 @@ import RegistrationContext, {
 } from "../contexts/RegistrationContext";
 import RegistrationPage from "./RegistrationPage";
 
+/**
+ * Error screen for when the NFC registration flow reaches a fatal error
+ */
 export default function ErrorPage() {
   const {
     state: { errorInfo },

@@ -49,4 +49,13 @@ module.exports = {
     // Allows us to use class fields for constructors
     "react/state-in-constructor": ["error", "never"],
   },
+
+  // Allows the import resolver to locate the main file for `react-native-screens`
+  settings: {
+    "import/resolver": {
+      node: {
+        extensions: [".js", ".jsx", ".json", ".native.js"],
+      },
+    },
+  },
 };

@@ -18,7 +18,7 @@ export default function UserDataReview() {
 
   return (
     <RegistrationPage title={registrationPages.userDataReview}>
-      {/* TODO: make a better user display */}
+      {/* TODO: make a better user display once the backend response is finalized */}
       {userData && (
         <View>
           <Text>Is this {userData.name}?</Text>
