@@ -1,7 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import EventScanner from "../EventScanner/EventScanner";
-import RegistrationScanner from "../RegistrationScanner/RegistrationScanner";
+import EventSignIn from "../EventSignIn/EventSignIn";
+import NFCRegistration from "../NFCRegistration/NFCRegistration";
 
 const Tab = createBottomTabNavigator();
 
@@ -10,16 +10,16 @@ const Tab = createBottomTabNavigator();
  */
 export default function Home() {
   return (
-    <Tab.Navigator initialRouteName="Registration Scanner">
+    <Tab.Navigator initialRouteName="Event Sign In">
       <Tab.Screen
-        name="Event Scanner"
-        component={EventScanner}
-        options={{ title: "Event Scanner" }}
+        name="Event Sign In"
+        component={EventSignIn}
+        options={{ title: "Event Sign In" }}
       />
       <Tab.Screen
-        name="Registration Scanner"
-        component={RegistrationScanner}
-        options={{ title: "Registration Scanner" }}
+        name="NFC Registration"
+        component={NFCRegistration}
+        options={{ title: "NFC Registration" }}
       />
     </Tab.Navigator>
   );
