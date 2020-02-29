@@ -7,6 +7,7 @@ import RegistrationContext, {
 } from "../contexts/RegistrationContext";
 import { colors } from "../styleConfig";
 import { registerNfcBand } from "../actions/NFCRegistration";
+import CancelButton from "./CancelButton";
 
 /**
  * The NFC Scanning dialogue
@@ -46,6 +47,7 @@ export default function NFCScanner() {
         title="Scan NFC Code"
         color={colors.primaryColor}
       />
+      <CancelButton />
     </RegistrationPage>
   );
 }

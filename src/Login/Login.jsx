@@ -10,10 +10,10 @@ import { colors } from "../styleConfig";
 export default function Login() {
   const { authAPI } = useContext(AuthContext);
   return (
-    <Screen title="Login">
+    <Screen>
       <Button
         onPress={authAPI.signIn}
-        title="Click me!"
+        title="Login"
         color={colors.primaryColor}
       />
     </Screen>

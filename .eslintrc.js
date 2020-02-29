@@ -31,6 +31,9 @@ module.exports = {
     // Prevents unused styling rules
     "react-native/no-unused-styles": "error",
 
+    // Enforces the use of colors from the style config
+    "react-native/no-color-literals": "error",
+
     // Prevents inline styles
     "react-native/no-inline-styles": "error",
 

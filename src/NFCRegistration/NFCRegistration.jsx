@@ -3,7 +3,6 @@ import Screen from "../components/Screen";
 import UserDataReview from "./UserDataReview";
 import { RegistrationProvider } from "../contexts/RegistrationContext";
 import QRScanner from "./QRScanner";
-import CancelButton from "./CancelButton";
 import NFCScanner from "./NFCScanner";
 import ErrorPage from "./ErrorPage";
 import LoadingPage from "./LoadingPage";
@@ -14,13 +13,12 @@ import LoadingPage from "./LoadingPage";
 export default function NFCRegistration() {
   return (
     <RegistrationProvider>
-      <Screen title="Registration Scanner">
+      <Screen>
         <QRScanner />
         <UserDataReview />
         <NFCScanner />
         <LoadingPage />
         <ErrorPage />
-        <CancelButton />
       </Screen>
     </RegistrationProvider>
   );
