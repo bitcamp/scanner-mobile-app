@@ -33,5 +33,6 @@ BodyText.defaultProps = {
 const styles = StyleSheet.create({
   bodyText: {
     fontFamily: textStyles.bodyFont,
+    fontSize: textStyles.body,
   },
 });

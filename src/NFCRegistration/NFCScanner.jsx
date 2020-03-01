@@ -45,7 +45,7 @@ export default function NFCScanner() {
       <Button
         onPress={() => handleNFCScan("randomString")}
         title="Scan NFC Code"
-        color={colors.primaryColor}
+        color={colors.primary}
       />
       <CancelButton />
     </RegistrationPage>

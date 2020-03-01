@@ -3,8 +3,7 @@ import { View, StyleSheet, ViewPropTypes } from "react-native";
 import PropTypes from "prop-types";
 
 /**
- * A full page screen meant as a stand-in for actual components in the future
- * TODO: delete this file when actual screens are created
+ * A full page screen that centers its content
  */
 export default function Screen({ children, style }) {
   return <View style={[styles.fullScreen, style]}>{children}</View>;

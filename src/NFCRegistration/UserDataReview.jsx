@@ -30,7 +30,7 @@ export default function UserDataReview() {
             />
             <Button
               title="Yes"
-              color={colors.primaryColor}
+              color={colors.primary}
               onPress={() =>
                 dispatch({ type: registrationActions.confirmUserData })
               }
