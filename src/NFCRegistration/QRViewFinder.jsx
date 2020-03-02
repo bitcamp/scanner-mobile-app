@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 3,
     zIndex: 2,
+    maxHeight: 200,
   },
   row: {
     backgroundColor: colors.viewFinderMask,
@@ -95,8 +96,6 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     backgroundColor: colors.viewFinderThroughHole,
     flex: 0,
-    maxHeight: 200,
-    maxWidth: 200,
     zIndex: 2,
   },
 });
