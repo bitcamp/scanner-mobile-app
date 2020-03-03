@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Picker, StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet } from "react-native";
 import Screen from "../components/Screen";
 import Title from "../components/Title";
-import BodyText from "../components/BodyText";
 import { fetchEvents, attendEvent } from "../actions/EventSignIn";
-import { colors, baseStyles, textStyles } from "../styleConfig";
-import Splash from "../Splash/Splash";
+import { baseStyles } from "../styleConfig";
 import TextButton from "../components/TextButton";
+import EventPicker, { placeholderId } from "./EventPicker";
+import ScanningDirections from "./ScanningDirections";
+import EventLoader from "./EventLoader";
 
 /**
  * The screen for signing users into events by scanning their NFC wristband
  */
 export default function EventSignIn() {
   const [eventsLoaded, setEventsLoaded] = useState(null);
+  const [event, setEvent] = useState(placeholderId);
   const [events, setEvents] = useState([]);
-  const [event, setEvent] = useState(null);
-  const directions = [
-    "Select an event from the dropdown above",
-    'Tap the "Scan Wristband" button',
-    "Place the wristband underneath your phone",
-    "The user will be signed in!",
-  ];
+  const [fetchError, setFetchError] = useState(null);
 
   /**
    * Fetch the events list when this component renders
@@ -34,6 +30,7 @@ export default function EventSignIn() {
       } catch (e) {
         // TODO: add in error validation
         setEventsLoaded(false);
+        setFetchError(e);
       }
     };
 
@@ -43,39 +40,21 @@ export default function EventSignIn() {
   return eventsLoaded ? (
     <Screen style={styles.containerStyle}>
       <Title style={styles.title}>Event Sign In</Title>
-      <View style={styles.pickerContainer}>
-        <Picker
-          selectedValue={event}
-          onValueChange={eventChoice => setEvent(eventChoice)}
-        >
-          {!event && <Picker.Item label="Select an event" value="Default" />}
-          {// TODO: figure out actual data format and filter based on current time
-          events[0][1].map(({ title, eventID }) => (
-            <Picker.Item label={title} value={eventID} key={eventID} />
-          ))}
-        </Picker>
-      </View>
-      <FlatList
-        data={directions}
-        renderItem={({ item: direction, index }) => (
-          <View style={styles.directionContainer}>
-            <BodyText style={styles.directionNumber}>
-              {`${index + 1}.`}
-            </BodyText>
-            <BodyText style={styles.direction}>{direction}</BodyText>
-          </View>
-        )}
-        keyExtractor={item => item}
+      <EventPicker
+        events={events}
+        selectedEvent={event}
+        onEventSelection={setEvent}
       />
+      <ScanningDirections />
       <TextButton
         onPress={() => attendEvent("TODO: PUT NFC CODE HERE", event)}
-        disabled={!event}
+        disabled={event === placeholderId}
       >
         Scan Wristband
       </TextButton>
     </Screen>
   ) : (
-    <Splash />
+    <EventLoader error={fetchError} loadingState={eventsLoaded} />
   );
 }
 
@@ -84,26 +63,6 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     justifyContent: "flex-start",
     padding: baseStyles.spacing,
-  },
-  direction: {
-    flexShrink: 1,
-    fontSize: textStyles.medium,
-  },
-  directionContainer: {
-    flexDirection: "row",
-    flex: 1,
-    paddingVertical: baseStyles.spacing / 2,
-  },
-  directionNumber: {
-    fontSize: textStyles.medium,
-    fontWeight: "bold",
-    marginRight: baseStyles.spacing / 2,
-  },
-  pickerContainer: {
-    borderColor: colors.inputBorder,
-    borderRadius: baseStyles.borderRadius,
-    borderWidth: baseStyles.borderWidth,
-    marginBottom: baseStyles.spacing / 2,
   },
   title: {
     padding: 0,
