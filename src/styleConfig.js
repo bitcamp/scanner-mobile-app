@@ -3,5 +3,13 @@
 // eslint-disable-next-line import/prefer-default-export
 export const colors = {
   primaryColor: "#FF6F3F",
-  darkBGTextColor: "white",
+  viewFinderMask: "rgba(0, 0, 0, 0.5)",
+  viewFinderThroughHole: "transparent",
+  viewFinderBorder: "white",
+};
+
+export const textStyles = {
+  titleFont: "Aleo-Bold",
+  bodyFont: "System",
+  darkBGColor: "white",
 };

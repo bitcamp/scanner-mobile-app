@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useMemo } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import AuthContext from "./contexts/AuthContext";
-import { colors } from "./styleConfig";
+import { colors, textStyles } from "./styleConfig";
 import Splash from "./Splash/Splash";
 import Login from "./Login/Login";
 import Home from "./Home/Home";
+import BodyText from "./components/BodyText";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,7 +19,7 @@ export default function AppNavigator() {
     authAPI.fetchUserToken();
   }, [authAPI]);
 
-  const getPrimaryScreen = useMemo(() => {
+  const primaryScreen = useMemo(() => {
     if (authState.isLoadingToken) {
       // We haven't finished checking for the token yet
       return (
@@ -53,7 +54,9 @@ export default function AppNavigator() {
         options={{
           headerRight: () => (
             <TouchableOpacity onPress={authAPI.signOut}>
-              <Text style={styles.logout}>Log Out</Text>
+              <BodyText style={styles.logout} onDarkBackground>
+                Log Out
+              </BodyText>
             </TouchableOpacity>
           ),
         }}
@@ -72,21 +75,20 @@ export default function AppNavigator() {
         headerStyle: {
           backgroundColor: colors.primaryColor,
         },
-        headerTintColor: "#fff",
+        headerTintColor: colors.darkBGColor,
         headerTitleStyle: {
           fontWeight: "bold",
-          color: colors.darkBGTextColor,
+          color: textStyles.darkBGColor,
         },
       }}
     >
-      {getPrimaryScreen}
+      {primaryScreen}
     </Stack.Navigator>
   );
 }
 
 const styles = StyleSheet.create({
   logout: {
-    color: colors.darkBGTextColor,
     marginRight: 10,
   },
 });

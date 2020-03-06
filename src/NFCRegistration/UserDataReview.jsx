@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import { Text, Button, StyleSheet, View } from "react-native";
+import { Button, StyleSheet, View } from "react-native";
 import RegistrationPage from "./RegistrationPage";
 import RegistrationContext, {
   registrationPages,
   registrationActions,
 } from "../contexts/RegistrationContext";
 import { colors } from "../styleConfig";
+import BodyText from "../components/BodyText";
 
 /**
  * A detailed summary of a user's data
@@ -21,7 +22,7 @@ export default function UserDataReview() {
       {/* TODO: make a better user display once the backend response is finalized */}
       {userData && (
         <View>
-          <Text>Is this {userData.name}?</Text>
+          <BodyText>Is this {userData.name}?</BodyText>
           <View style={styles.buttonContainer}>
             <Button
               title="No"

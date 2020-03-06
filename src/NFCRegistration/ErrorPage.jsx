@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { Text } from "react-native";
 import { NetworkError, AuthorizationError } from "../actions/ErrorTypes";
 import RegistrationContext, {
   registrationPages,
 } from "../contexts/RegistrationContext";
 import RegistrationPage from "./RegistrationPage";
+import BodyText from "../components/BodyText";
 
 /**
  * Error screen for when the NFC registration flow reaches a fatal error
@@ -25,7 +25,7 @@ export default function ErrorPage() {
 
   return (
     <RegistrationPage title={registrationPages.error}>
-      <Text>{errorText}</Text>
+      <BodyText>{errorText}</BodyText>
     </RegistrationPage>
   );
 }
