@@ -50,10 +50,13 @@ export const AuthProvider = ({ children }) => {
       signIn: async () => {
         // TODO: Send (username, password) to server and get a token
         // We will also need to handle errors if sign in failed
-        // After getting token, we need to persist the token using `AsyncStorage`
-        // In the example, we'll use a dummy token
-
-        dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
+        try {
+          const token = "dummy-auth-token";
+          AsyncStorage.setItem("userToken", token);
+          dispatch({ type: "SIGN_IN", token });
+        } catch (e) {
+          // Catch errors while signing in
+        }
       },
       signOut: () => {
         AsyncStorage.removeItem("userToken").then(() =>
@@ -68,8 +71,6 @@ export const AuthProvider = ({ children }) => {
         } catch (e) {
           // Restoring token failed (so userToken will stay null)
         }
-
-        // After restoring the token, we may need to validate it
 
         // This will switch to the App screen or Auth screen and this loading
         // screen will be unmounted and thrown away.

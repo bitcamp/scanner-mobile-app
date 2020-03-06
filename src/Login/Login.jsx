@@ -1,8 +1,13 @@
 import React, { useContext } from "react";
-import { Button } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
+import { Formik } from "formik";
+import * as yup from "yup";
+import { TextInput } from "react-native-gesture-handler";
 import AuthContext from "../contexts/AuthContext";
 import Screen from "../components/Screen";
 import { colors } from "../styleConfig";
+
+// TODO: Swap to better button and text components
 
 /**
  * The screen where organizers can log into the app
@@ -11,11 +16,80 @@ export default function Login() {
   const { authAPI } = useContext(AuthContext);
   return (
     <Screen title="Login">
-      <Button
-        onPress={authAPI.signIn}
-        title="Click me!"
-        color={colors.primaryColor}
-      />
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        onSubmit={authAPI.signIn}
+        validationSchema={formSchema}
+      >
+        {({
+          values,
+          handleChange,
+          errors,
+          setFieldTouched,
+          touched,
+          isValid,
+          handleSubmit,
+        }) => (
+          <View style={styles.formContainer}>
+            <TextInput
+              style={styles.input}
+              value={values.email}
+              onChangeText={handleChange("email")}
+              onBlur={() => setFieldTouched("email")}
+              placeholder="E-mail"
+            />
+            {touched.email && errors.email && (
+              <Text style={styles.error}>{errors.email}</Text>
+            )}
+            <TextInput
+              style={styles.input}
+              value={values.password}
+              onChangeText={handleChange("password")}
+              placeholder="·····"
+              onBlur={() => setFieldTouched("password")}
+              secureTextEntry
+            />
+            {touched.password && errors.password && (
+              <Text style={styles.error}>{errors.password}</Text>
+            )}
+            {// TODO: replace with better button with a disabled param eventually
+            isValid && (
+              <Button
+                onPress={handleSubmit}
+                title="Click me!"
+                color={colors.primaryColor}
+              />
+            )}
+          </View>
+        )}
+      </Formik>
     </Screen>
   );
 }
+
+/**
+ * The format of the form data
+ */
+const formSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Not a valid email")
+    .required("Email is required"),
+  password: yup.string().required("Password is required"),
+});
+
+const styles = StyleSheet.create({
+  error: {
+    color: "red",
+    fontSize: 10,
+  },
+  formContainer: {
+    alignItems: "stretch",
+    flex: 1,
+  },
+  input: {
+    borderColor: "#000",
+    borderWidth: 2,
+    fontSize: 16,
+  },
+});

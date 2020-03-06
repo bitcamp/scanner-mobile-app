@@ -18,9 +18,10 @@ export default function AppNavigator() {
     authAPI.fetchUserToken();
   }, [authAPI]);
 
-  const getPrimaryScreen = useMemo(() => {
+  // Determine which screen to display based on the authorization status
+  const primaryScreen = useMemo(() => {
+    // We haven't finished checking for the token yet
     if (authState.isLoadingToken) {
-      // We haven't finished checking for the token yet
       return (
         <Stack.Screen
           name="Splash"
@@ -31,8 +32,9 @@ export default function AppNavigator() {
         />
       );
     }
+
+    // No token found, user isn't signed in
     if (authState.userToken == null) {
-      // No token found, user isn't signed in
       return (
         <Stack.Screen
           name="Login"
@@ -45,6 +47,7 @@ export default function AppNavigator() {
         />
       );
     }
+
     // User is signed in
     return (
       <Stack.Screen
@@ -79,7 +82,7 @@ export default function AppNavigator() {
         },
       }}
     >
-      {getPrimaryScreen}
+      {primaryScreen}
     </Stack.Navigator>
   );
 }
