@@ -10,6 +10,6 @@ export const colors = {
 
 export const textStyles = {
   titleFont: "Aleo-Bold",
-  bodyFont: "", // Just use the default system
+  bodyFont: "System",
   darkBGColor: "white",
 };
