@@ -14,7 +14,7 @@ import EventLoader from "./EventLoader";
  */
 export default function EventSignIn() {
   const [eventsLoaded, setEventsLoaded] = useState(null);
-  const [event, setEvent] = useState(placeholderId);
+  const [selectedEvent, setSelectedEvent] = useState(placeholderId);
   const [events, setEvents] = useState([]);
   const [fetchError, setFetchError] = useState(null);
 
@@ -42,13 +42,13 @@ export default function EventSignIn() {
       <Title style={styles.title}>Event Sign In</Title>
       <EventPicker
         events={events}
-        selectedEvent={event}
-        onEventSelection={setEvent}
+        selectedEvent={selectedEvent}
+        onEventSelection={setSelectedEvent}
       />
       <ScanningDirections />
       <TextButton
-        onPress={() => attendEvent("TODO: PUT NFC CODE HERE", event)}
-        disabled={event === placeholderId}
+        onPress={() => attendEvent("TODO: PUT NFC CODE HERE", selectedEvent)}
+        disabled={selectedEvent === placeholderId}
       >
         Scan Wristband
       </TextButton>

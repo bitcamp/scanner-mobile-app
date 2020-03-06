@@ -1,5 +1,6 @@
 import artificialDelay from "./aritificialDelay";
 import mockSchedule from "../mockData/mockSchedule";
+import { IllegalArgumentError } from "./errors";
 
 /**
  * Returns a list of all of the events
