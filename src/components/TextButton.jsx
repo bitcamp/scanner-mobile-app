@@ -24,11 +24,14 @@ export default function TextButton({
         disabled ? styles.disabled : null,
         viewStyle,
       ]}
-      rippleColor={disabled ? colors.button : colors.ripple}
+      rippleColor={
+        // Mimics no ripple when the button is disabled
+        disabled ? colors.button : colors.ripple
+      }
       onPress={disabled ? noop : onPress}
     >
       <View accessible>
-        <BodyText onDarkBackground style={[styles.buttonText, textStyle]}>
+        <BodyText light style={[styles.buttonText, textStyle]}>
           {children}
         </BodyText>
       </View>

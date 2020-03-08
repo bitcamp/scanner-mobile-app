@@ -5,7 +5,7 @@ import Title from "../components/Title";
 import { fetchEvents, attendEvent } from "../actions/EventSignIn";
 import { baseStyles } from "../styleConfig";
 import TextButton from "../components/TextButton";
-import EventPicker, { placeholderId } from "./EventPicker";
+import EventPicker, { placeholderText } from "./EventPicker";
 import ScanningDirections from "./ScanningDirections";
 import EventLoader from "./EventLoader";
 
@@ -14,7 +14,7 @@ import EventLoader from "./EventLoader";
  */
 export default function EventSignIn() {
   const [eventsLoaded, setEventsLoaded] = useState(null);
-  const [selectedEvent, setSelectedEvent] = useState(placeholderId);
+  const [selectedEvent, setSelectedEvent] = useState(placeholderText);
   const [events, setEvents] = useState([]);
   const [fetchError, setFetchError] = useState(null);
 
@@ -48,7 +48,7 @@ export default function EventSignIn() {
       <ScanningDirections />
       <TextButton
         onPress={() => attendEvent("TODO: PUT NFC CODE HERE", selectedEvent)}
-        disabled={selectedEvent === placeholderId}
+        disabled={selectedEvent === placeholderText}
       >
         Scan Wristband
       </TextButton>
