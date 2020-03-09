@@ -1,19 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Text, StyleSheet } from "react-native";
-import { textStyles } from "../styleConfig";
+import { colors } from "../styleConfig";
 
 /**
  * The base text component. Used to construct the other foundational text components.
  */
-export default function BaseText({
-  children,
-  defaultStyle,
-  style,
-  onDarkBackground,
-}) {
+export default function BaseText({ children, defaultStyle, style, light }) {
   return (
-    <Text style={[defaultStyle, onDarkBackground && styles.darkBg, style]}>
+    <Text style={[defaultStyle, light ? styles.light : styles.dark, style]}>
       {children}
     </Text>
   );
@@ -23,17 +18,20 @@ BaseText.propTypes = {
   children: PropTypes.node.isRequired,
   style: Text.propTypes.style,
   defaultStyle: Text.propTypes.style,
-  onDarkBackground: PropTypes.bool,
+  light: PropTypes.bool,
 };
 
 BaseText.defaultProps = {
   style: null,
-  onDarkBackground: false,
+  light: false,
   defaultStyle: null,
 };
 
 const styles = StyleSheet.create({
-  darkBg: {
-    color: textStyles.darkBGColor,
+  dark: {
+    color: colors.darkText,
+  },
+  light: {
+    color: colors.lightText,
   },
 });

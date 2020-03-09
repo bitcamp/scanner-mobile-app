@@ -11,11 +11,7 @@ export default function Login() {
   const { authAPI } = useContext(AuthContext);
   return (
     <Screen>
-      <Button
-        onPress={authAPI.signIn}
-        title="Login"
-        color={colors.primaryColor}
-      />
+      <Button onPress={authAPI.signIn} title="Login" color={colors.primary} />
     </Screen>
   );
 }

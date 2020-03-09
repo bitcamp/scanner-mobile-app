@@ -7,13 +7,9 @@ import BaseText from "./BaseText";
 /**
  * Text component for regular text
  */
-export default function BodyText({ children, style, onDarkBackground }) {
+export default function BodyText({ children, style, light }) {
   return (
-    <BaseText
-      style={style}
-      onDarkBackground={onDarkBackground}
-      defaultStyle={styles.bodyText}
-    >
+    <BaseText style={style} light={light} defaultStyle={styles.bodyText}>
       {children}
     </BaseText>
   );
@@ -22,16 +18,17 @@ export default function BodyText({ children, style, onDarkBackground }) {
 BodyText.propTypes = {
   children: PropTypes.node.isRequired,
   style: Text.propTypes.style,
-  onDarkBackground: PropTypes.bool,
+  light: PropTypes.bool,
 };
 
 BodyText.defaultProps = {
   style: null,
-  onDarkBackground: false,
+  light: false,
 };
 
 const styles = StyleSheet.create({
   bodyText: {
     fontFamily: textStyles.bodyFont,
+    fontSize: textStyles.body,
   },
 });

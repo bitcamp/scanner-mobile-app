@@ -77,7 +77,7 @@ export default function QRScanner() {
             status === RNCamera.Constants.CameraStatus.NOT_AUTHORIZED ||
             audioStatus === RNCamera.Constants.CameraStatus.NOT_AUTHORIZED ? (
               <View>
-                <BodyText onDarkBackground style={styles.noPermissions}>
+                <BodyText light style={styles.noPermissions}>
                   Please grant the app camera and audio permissions to scan QR
                   codes
                 </BodyText>
@@ -86,10 +86,10 @@ export default function QRScanner() {
               <QRViewFinder
                 topView={
                   <>
-                    <Title onDarkBackground style={styles.infoText}>
+                    <Title light style={styles.infoText}>
                       User Check In
                     </Title>
-                    <BodyText onDarkBackground style={styles.infoText}>
+                    <BodyText light style={styles.infoText}>
                       Align a hacker&apos;s QR code with the view finder to
                       start check-in
                     </BodyText>

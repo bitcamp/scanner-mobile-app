@@ -60,6 +60,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Aleo-Bold.otf</string>
+		<string>MaterialCommunityIcons.ttf</string>
 	</array>
 </dict>
 </plist>
