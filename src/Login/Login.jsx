@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import { Formik } from "formik";
-import * as yup from "yup";
 import { TextInput } from "react-native-gesture-handler";
 import AuthContext from "../contexts/AuthContext";
 import Screen from "../components/Screen";
 import { colors } from "../styleConfig";
+import LoginSchema from "../models/LoginSchema";
 
 // TODO: Swap to better button and text components
 
@@ -19,7 +19,7 @@ export default function Login() {
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={authAPI.signIn}
-        validationSchema={formSchema}
+        validationSchema={LoginSchema}
       >
         {({
           values,
@@ -66,17 +66,6 @@ export default function Login() {
     </Screen>
   );
 }
-
-/**
- * The format of the form data
- */
-const formSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Not a valid email")
-    .required("Email is required"),
-  password: yup.string().required("Password is required"),
-});
 
 const styles = StyleSheet.create({
   error: {
