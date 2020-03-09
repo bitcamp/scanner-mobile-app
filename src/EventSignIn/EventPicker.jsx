@@ -37,7 +37,7 @@ export default function EventPicker({
           }}
         />
       </View>
-      <DownArrow style={styles.expandIcon} />
+      <DownArrow />
     </View>
   );
 }
@@ -64,15 +64,13 @@ EventPicker.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  expandIcon: {
-    paddingRight: baseStyles.spacing / 2,
-  },
   inputContainer: {
     flex: 1,
   },
   picker: {
     color: colors.darkText,
     fontSize: textStyles.medium,
+    height: 50,
     textAlign: "left",
   },
   pickerContainer: {
@@ -82,6 +80,7 @@ const styles = StyleSheet.create({
     borderWidth: baseStyles.borderWidth,
     flexDirection: "row",
     marginBottom: baseStyles.spacing / 2,
+    paddingHorizontal: baseStyles.spacing / 2,
   },
   placeholder: {
     color: colors.disabled,
