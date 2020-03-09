@@ -5207,6 +5207,11 @@ react-native-iphone-x-helper@^1.2.1:
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
   integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
 
+react-native-nfc-manager@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-nfc-manager/-/react-native-nfc-manager-2.1.2.tgz#2741b98012805546d7555b1ad07b0d72ed73a9a5"
+  integrity sha512-nKHdoO1NYlrBCJdXUYq68LZJVtNbN+YIVSxht66M1cpyBE1aZixCT4h3NtvH2H7n6LFJlKRbHwFvVDMrqGJu3g==
+
 react-native-picker-select@^6.6.0:
   version "6.6.0"
   resolved "https://registry.yarnpkg.com/react-native-picker-select/-/react-native-picker-select-6.6.0.tgz#a424e2a68dae228c492684a41745c0194cee01f0"

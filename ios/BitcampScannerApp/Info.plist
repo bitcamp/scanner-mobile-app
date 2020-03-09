@@ -62,5 +62,7 @@
 		<string>Aleo-Bold.otf</string>
 		<string>MaterialCommunityIcons.ttf</string>
 	</array>
+	<key>NFCReaderUsageDescription</key>
+	<string>We need the NFC reader to scan user wristbands</string>
 </dict>
 </plist>

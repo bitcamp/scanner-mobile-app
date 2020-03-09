@@ -1,19 +1,87 @@
-import "react-native-gesture-handler";
+// import "react-native-gesture-handler";
+// import React from "react";
+// import { NavigationContainer } from "@react-navigation/native";
+// import { enableScreens } from "react-native-screens";
+// import { AuthProvider } from "./contexts/AuthContext";
+// import AppNavigator from "./AppNavigator";
+
+// // This is an optimization that improves performance with multi-screen apps
+// enableScreens();
+
+// export default function App() {
+//   return (
+//     <AuthProvider>
+//       <NavigationContainer>
+//         <AppNavigator />
+//       </NavigationContainer>
+//     </AuthProvider>
+//   );
+// }
+
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { enableScreens } from "react-native-screens";
-import { AuthProvider } from "./contexts/AuthContext";
-import AppNavigator from "./AppNavigator";
+import { View, Text, TouchableOpacity } from "react-native";
+import NfcManager, { NfcEvents } from "react-native-nfc-manager";
 
-// This is an optimization that improves performance with multi-screen apps
-enableScreens();
+class AppV2 extends React.Component {
+  componentDidMount() {
+    NfcManager.start();
+    NfcManager.setEventListener(NfcEvents.DiscoverTag, tag => {
+      console.warn("tag", tag);
+      NfcManager.setAlertMessageIOS("I got your tag!");
+      NfcManager.unregisterTagEvent().catch(() => 0);
+    });
+  }
 
-export default function App() {
-  return (
-    <AuthProvider>
-      <NavigationContainer>
-        <AppNavigator />
-      </NavigationContainer>
-    </AuthProvider>
-  );
+  componentWillUnmount() {
+    NfcManager.setEventListener(NfcEvents.DiscoverTag, null);
+    NfcManager.unregisterTagEvent().catch(() => 0);
+  }
+
+  render() {
+    return (
+      <View style={{ padding: 20 }}>
+        <Text>NFC Demo</Text>
+        <TouchableOpacity
+          style={{
+            padding: 10,
+            width: 200,
+            margin: 20,
+            borderWidth: 1,
+            borderColor: "black",
+          }}
+          onPress={this._test}
+        >
+          <Text>Test</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            padding: 10,
+            width: 200,
+            margin: 20,
+            borderWidth: 1,
+            borderColor: "black",
+          }}
+          onPress={this._cancel}
+        >
+          <Text>Cancel Test</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  _cancel = () => {
+    NfcManager.unregisterTagEvent().catch(() => 0);
+  };
+
+  _test = async () => {
+    try {
+      await NfcManager.registerTagEvent();
+    } catch (ex) {
+      console.warn("ex", ex);
+      NfcManager.unregisterTagEvent().catch(() => 0);
+    }
+  };
 }
+
+export default AppV2;
