@@ -16,7 +16,7 @@ export default function Title({ children, style, light }) {
 }
 
 Title.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   style: Text.propTypes.style,
   light: PropTypes.bool,
 };
@@ -24,6 +24,7 @@ Title.propTypes = {
 Title.defaultProps = {
   style: null,
   light: false,
+  children: "",
 };
 
 const styles = StyleSheet.create({
