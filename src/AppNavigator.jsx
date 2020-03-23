@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useMemo } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 import AuthContext from "./contexts/AuthContext";
 import { colors } from "./styleConfig";
 import Splash from "./Splash/Splash";
 import Login from "./Login/Login";
 import Home from "./Home/Home";
+import BodyText from "./components/BodyText";
 
 const Stack = createNativeStackNavigator();
 
@@ -56,7 +57,9 @@ export default function AppNavigator() {
         options={{
           headerRight: () => (
             <TouchableOpacity onPress={authAPI.signOut}>
-              <Text style={styles.logout}>Log Out</Text>
+              <BodyText style={styles.logout} light>
+                Log Out
+              </BodyText>
             </TouchableOpacity>
           ),
         }}
@@ -73,12 +76,12 @@ export default function AppNavigator() {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: colors.primaryColor,
+          backgroundColor: colors.primary,
         },
-        headerTintColor: "#fff",
+        headerTintColor: colors.lightText,
         headerTitleStyle: {
           fontWeight: "bold",
-          color: colors.darkBGTextColor,
+          color: colors.lightText,
         },
       }}
     >
@@ -89,7 +92,6 @@ export default function AppNavigator() {
 
 const styles = StyleSheet.create({
   logout: {
-    color: colors.darkBGTextColor,
     marginRight: 10,
   },
 });

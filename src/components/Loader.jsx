@@ -6,5 +6,5 @@ import { colors } from "../styleConfig";
  * The app's loading icon
  */
 export default function Loader() {
-  return <ActivityIndicator size="large" color={colors.primaryColor} />;
+  return <ActivityIndicator size="large" color={colors.primary} />;
 }

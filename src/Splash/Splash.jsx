@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import Screen from "../components/Screen";
 import Loader from "../components/Loader";
 
 /**
@@ -7,16 +7,8 @@ import Loader from "../components/Loader";
  */
 export default function Splash() {
   return (
-    <View style={styles.centerContent}>
+    <Screen>
       <Loader />
-    </View>
+    </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  centerContent: {
-    alignItems: "center",
-    flex: 1,
-    justifyContent: "center",
-  },
-});

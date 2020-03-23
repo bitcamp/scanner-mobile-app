@@ -1,18 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet, ViewPropTypes } from "react-native";
 import PropTypes from "prop-types";
 
 /**
- * A full page screen meant as a stand-in for actual components in the future
- * TODO: delete this file when actual screens are created
+ * A full page screen that centers its content
  */
-export default function Screen({ title, children }) {
-  return (
-    <View style={styles.fullScreen}>
-      <Text style={styles.screenTitle}>{title}</Text>
-      {children}
-    </View>
-  );
+export default function Screen({ children, style }) {
+  return <View style={[styles.fullScreen, style]}>{children}</View>;
 }
 
 const styles = StyleSheet.create({
@@ -21,17 +15,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
-  screenTitle: {
-    fontSize: 20,
-    textAlign: "center",
-  },
 });
 
 Screen.propTypes = {
-  title: PropTypes.string.isRequired,
   children: PropTypes.node,
+  style: ViewPropTypes.style,
 };
 
 Screen.defaultProps = {
   children: null,
+  style: null,
 };
