@@ -5,6 +5,7 @@ export class CustomError extends Error {
   constructor(message) {
     super(message);
     this.message = message;
+    this.name = "CustomError";
   }
 }
 
@@ -13,6 +14,7 @@ export class NetworkError extends CustomError {
   constructor(message) {
     super(message);
     this.message = message;
+    this.name = "NetworkError";
   }
 }
 
@@ -21,6 +23,7 @@ export class AuthorizationError extends CustomError {
   constructor(message) {
     super(message);
     this.message = message;
+    this.name = "AuthorizationError";
   }
 }
 
@@ -29,5 +32,14 @@ export class IllegalArgumentError extends CustomError {
   constructor(message) {
     super(message);
     this.message = message;
+    this.name = "IllegalArgumentError";
   }
+}
+
+/**
+ * @param {Error} error the error that was encountered
+ * @returns an error message based on the error's type
+ */
+export function getErrorMessage(error) {
+  return error ? error.toString() : "Error";
 }

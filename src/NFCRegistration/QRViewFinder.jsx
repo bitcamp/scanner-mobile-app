@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   middleRow: {
     alignItems: "center",
-    backgroundColor: colors.viewFinderThroughHole,
+    backgroundColor: colors.invisible,
     flexDirection: "row",
     flex: 3,
     zIndex: 2,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   viewFinder: {
     aspectRatio: 1,
-    backgroundColor: colors.viewFinderThroughHole,
+    backgroundColor: colors.invisible,
     flex: 0,
     zIndex: 2,
   },

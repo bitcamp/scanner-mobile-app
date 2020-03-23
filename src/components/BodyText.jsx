@@ -16,7 +16,7 @@ export default function BodyText({ children, style, light }) {
 }
 
 BodyText.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   style: Text.propTypes.style,
   light: PropTypes.bool,
 };
@@ -24,6 +24,7 @@ BodyText.propTypes = {
 BodyText.defaultProps = {
   style: null,
   light: false,
+  children: "",
 };
 
 const styles = StyleSheet.create({

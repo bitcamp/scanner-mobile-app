@@ -5,12 +5,13 @@ const pallete = {
   black: "black",
   primary: "#1b2e34",
   disabled: "#777",
+  error: "#f54242",
 };
 
 export const colors = {
   primary: pallete.primary,
   viewFinderMask: "rgba(0, 0, 0, 0.5)",
-  viewFinderThroughHole: "transparent",
+  invisible: "transparent",
   viewFinderBorder: pallete.white,
   inputBorder: pallete.disabled,
   button: pallete.primary,
@@ -19,6 +20,7 @@ export const colors = {
   lightText: pallete.white,
   darkText: pallete.black,
   disabled: pallete.disabled,
+  error: pallete.error,
 };
 
 export const textStyles = {
@@ -27,6 +29,7 @@ export const textStyles = {
   large: 30,
   medium: 18,
   body: 16,
+  error: 12,
 };
 
 export const baseStyles = {
@@ -34,4 +37,17 @@ export const baseStyles = {
   borderWidth: 2,
   spacing: 20,
   iconSize: 30,
+};
+
+export const toastOptions = {
+  error: {
+    containerStyle: {
+      backgroundColor: colors.error,
+      maxWidth: "80%",
+    },
+    textStyle: {
+      fontFamily: textStyles.bodyFont,
+      color: colors.lightText,
+    },
+  },
 };

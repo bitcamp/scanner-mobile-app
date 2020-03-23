@@ -15,7 +15,7 @@ export default function BaseText({ children, defaultStyle, style, light }) {
 }
 
 BaseText.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   style: Text.propTypes.style,
   defaultStyle: Text.propTypes.style,
   light: PropTypes.bool,
@@ -25,6 +25,7 @@ BaseText.defaultProps = {
   style: null,
   light: false,
   defaultStyle: null,
+  children: "",
 };
 
 const styles = StyleSheet.create({

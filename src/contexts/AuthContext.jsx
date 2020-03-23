@@ -1,6 +1,10 @@
 import React, { createContext, useMemo, useReducer } from "react";
 import PropTypes from "prop-types";
 import AsyncStorage from "@react-native-community/async-storage";
+import Toast from "react-native-tiny-toast";
+import logIn from "../actions/logIn";
+import { IllegalArgumentError, getErrorMessage } from "../actions/errors";
+import { toastOptions } from "../styleConfig";
 
 // Holds info on a user's login status for the entire app
 const AuthContext = createContext();
@@ -22,57 +26,58 @@ export const AuthProvider = ({ children }) => {
         case "SIGN_IN":
           return {
             ...prevState,
-            isSignout: false,
+            is: false,
             userToken: action.token,
           };
         case "SIGN_OUT":
           return {
             ...prevState,
-            isSignout: true,
-            userToken: undefined,
+            userToken: null,
           };
         default:
-          return {
-            ...prevState,
-          };
+          throw new IllegalArgumentError(
+            `Unhandled action type: ${action.type}`
+          );
       }
     },
     {
       isLoadingToken: true,
-      isSignout: false,
       userToken: null,
+      error: null,
     }
   );
 
   // These are the actions that screens can perform
   const authAPI = useMemo(
     () => ({
-      signIn: async () => {
-        // TODO: Send (username, password) to server and get a token
-        // We will also need to handle errors if sign in failed
-        // After getting token, we need to persist the token using `AsyncStorage`
-        // In the example, we'll use a dummy token
-
-        dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
+      signIn: async (username, password) => {
+        try {
+          // TODO: Send (username, password) to server and get a token
+          const token = await logIn(username, password);
+          AsyncStorage.setItem("userToken", token);
+          dispatch({ type: "SIGN_IN", token });
+        } catch (e) {
+          Toast.show(getErrorMessage(e), toastOptions.error);
+        }
       },
+
       signOut: () => {
         AsyncStorage.removeItem("userToken").then(() =>
           dispatch({ type: "SIGN_OUT" })
         );
       },
+
       fetchUserToken: async () => {
         let userToken;
 
         try {
           userToken = await AsyncStorage.getItem("userToken");
         } catch (e) {
-          // Restoring token failed (so userToken will stay null)
+          // Restoring token failed
+          userToken = null;
         }
 
-        // After restoring the token, we may need to validate it
-
-        // This will switch to the App screen or Auth screen and this loading
-        // screen will be unmounted and thrown away.
+        // Ends the process of loading the user token
         dispatch({ type: "RESTORE_TOKEN", token: userToken });
       },
     }),
