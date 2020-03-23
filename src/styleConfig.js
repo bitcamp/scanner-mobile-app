@@ -5,7 +5,7 @@ const pallete = {
   black: "black",
   primary: "#1b2e34",
   disabled: "#777",
-  error: "red",
+  error: "#f54242",
 };
 
 export const colors = {
@@ -37,4 +37,17 @@ export const baseStyles = {
   borderWidth: 2,
   spacing: 20,
   iconSize: 30,
+};
+
+export const toastOptions = {
+  error: {
+    containerStyle: {
+      backgroundColor: colors.error,
+      maxWidth: "80%",
+    },
+    textStyle: {
+      fontFamily: textStyles.bodyFont,
+      color: colors.lightText,
+    },
+  },
 };

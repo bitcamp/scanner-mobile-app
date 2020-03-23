@@ -7,6 +7,7 @@ import Splash from "./Splash/Splash";
 import Login from "./Login/Login";
 import Home from "./Home/Home";
 import BodyText from "./components/BodyText";
+import ErrorScreen from "./components/ErrorScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +22,7 @@ export default function AppNavigator() {
 
   // Determine which screen to display based on the authorization status
   const primaryScreen = useMemo(() => {
-    // We haven't finished checking for the token yet
+    // Show a loading screen while fetching the token
     if (authState.isLoadingToken) {
       return (
         <Stack.Screen
@@ -34,16 +35,27 @@ export default function AppNavigator() {
       );
     }
 
-    // No token found, user isn't signed in
-    if (authState.userToken == null) {
+    // If there is an error signing in, display an error screen
+    if (authState.error) {
+      return (
+        <Stack.Screen
+          name="Error"
+          component={ErrorScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+      );
+    }
+
+    // No there is no error and no token, the user isn't signed in
+    if (authState.userToken === null) {
       return (
         <Stack.Screen
           name="Login"
           component={Login}
           options={{
             title: "Log in",
-            // When logging out, a pop animation feels intuitive
-            animationTypeForReplace: authState.isSignout ? "pop" : "push",
           }}
         />
       );
@@ -67,8 +79,8 @@ export default function AppNavigator() {
     );
   }, [
     authAPI.signOut,
+    authState.error,
     authState.isLoadingToken,
-    authState.isSignout,
     authState.userToken,
   ]);
 

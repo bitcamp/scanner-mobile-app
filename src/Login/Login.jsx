@@ -34,7 +34,7 @@ export default function Login() {
           email: "Email is required",
           password: "Password is required",
         }}
-        onSubmit={authAPI.signIn}
+        onSubmit={({ email, password }) => authAPI.signIn(email, password)}
         validationSchema={LoginSchema}
         validateOnMount
       >

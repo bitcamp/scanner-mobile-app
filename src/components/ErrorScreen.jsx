@@ -4,19 +4,7 @@ import { StyleSheet } from "react-native";
 import Screen from "./Screen";
 import BodyText from "./BodyText";
 import { textStyles } from "../styleConfig";
-import { CustomError } from "../actions/errors";
-
-/**
- * @param error the error that was encountered
- * @returns an error message based on the error's type
- */
-function getErrorMessage(error) {
-  return error
-    ? `${error instanceof CustomError ? error.constructor.name : "Error"}\n${
-        error.message
-      }`
-    : "Error";
-}
+import { getErrorMessage } from "../actions/errors";
 
 /**
  * Displays an error message on screen given an error object from props

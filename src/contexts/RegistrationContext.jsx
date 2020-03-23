@@ -1,5 +1,6 @@
 import React, { createContext, useReducer } from "react";
 import PropTypes from "prop-types";
+import { IllegalArgumentError } from "../actions/errors";
 
 /**
  * The context for managing the nfc wristband registration flow
@@ -53,11 +54,7 @@ export function RegistrationProvider({ children }) {
         return initialState;
 
       default:
-        // TODO: evaluate whether this is a sane case to throw an
-        // error or if printing to the console is appropriate
-        // eslint-disable-next-line no-console
-        console.error("Passing an illegal registration action");
-        return prevState;
+        throw new IllegalArgumentError(`Unhandled action type: ${action.type}`);
     }
   }, initialState);
 
