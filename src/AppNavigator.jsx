@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useMemo } from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AuthContext from "./contexts/AuthContext";
-import { colors } from "./styleConfig";
+import { colors, baseStyles, icons } from "./styleConfig";
 import Splash from "./Splash/Splash";
 import Login from "./Login/Login";
 import Home from "./Home/Home";
-import BodyText from "./components/BodyText";
-import ErrorScreen from "./components/ErrorScreen";
+import Header from "./components/Header";
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 /** The app's primary stack navigator */
 export default function AppNavigator() {
@@ -28,37 +28,14 @@ export default function AppNavigator() {
         <Stack.Screen
           name="Splash"
           component={Splash}
-          options={{
-            headerShown: false,
-          }}
-        />
-      );
-    }
-
-    // If there is an error signing in, display an error screen
-    if (authState.error) {
-      return (
-        <Stack.Screen
-          name="Error"
-          component={ErrorScreen}
-          options={{
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
         />
       );
     }
 
     // No there is no error and no token, the user isn't signed in
     if (authState.userToken === null) {
-      return (
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{
-            title: "Log in",
-          }}
-        />
-      );
+      return <Stack.Screen name="Login" component={Login} />;
     }
 
     // User is signed in
@@ -68,33 +45,25 @@ export default function AppNavigator() {
         component={Home}
         options={{
           headerRight: () => (
-            <TouchableOpacity onPress={authAPI.signOut}>
-              <BodyText style={styles.logout} light>
-                Log Out
-              </BodyText>
-            </TouchableOpacity>
+            <Icon.Button
+              name={icons.logout}
+              size={baseStyles.smallIconSize}
+              color={colors.headerTint}
+              backgroundColor={colors.invisible}
+              onPress={authAPI.signOut}
+              style={styles.logout}
+              iconStyle={styles.logoutIcon}
+            />
           ),
         }}
       />
     );
-  }, [
-    authAPI.signOut,
-    authState.error,
-    authState.isLoadingToken,
-    authState.userToken,
-  ]);
+  }, [authAPI.signOut, authState.isLoadingToken, authState.userToken]);
 
   return (
     <Stack.Navigator
       screenOptions={{
-        headerStyle: {
-          backgroundColor: colors.primary,
-        },
-        headerTintColor: colors.lightText,
-        headerTitleStyle: {
-          fontWeight: "bold",
-          color: colors.lightText,
-        },
+        header: props => <Header headerProps={props} />,
       }}
     >
       {primaryScreen}
@@ -103,7 +72,7 @@ export default function AppNavigator() {
 }
 
 const styles = StyleSheet.create({
-  logout: {
-    marginRight: 10,
+  logoutIcon: {
+    marginRight: 0,
   },
 });

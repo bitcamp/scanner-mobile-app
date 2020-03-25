@@ -26,7 +26,6 @@ export const AuthProvider = ({ children }) => {
         case "SIGN_IN":
           return {
             ...prevState,
-            is: false,
             userToken: action.token,
           };
         case "SIGN_OUT":
@@ -43,7 +42,6 @@ export const AuthProvider = ({ children }) => {
     {
       isLoadingToken: true,
       userToken: null,
-      error: null,
     }
   );
 

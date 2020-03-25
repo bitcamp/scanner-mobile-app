@@ -111,8 +111,8 @@ const styles = StyleSheet.create({
   input: {
     borderColor: colors.inputBorder,
     borderRadius: baseStyles.borderRadius,
-    borderWidth: 2,
-    fontSize: 16,
+    borderWidth: baseStyles.borderWidth,
+    fontSize: textStyles.body,
     padding: baseStyles.spacing / 2,
   },
   inputContainer: {
