@@ -21,10 +21,16 @@ export const colors = {
   background: pallete.white,
   lightText: pallete.white,
   darkText: pallete.black,
+  title: pallete.primary,
   disabled: pallete.disabled,
   error: pallete.error,
   headerBackground: pallete.primary,
   headerTint: pallete.white,
+};
+
+export const statusBarStyles = {
+  backgroundColor: colors.headerBackground,
+  barStyle: "light-content",
 };
 
 export const textStyles = {

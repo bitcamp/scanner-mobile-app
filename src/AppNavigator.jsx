@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AuthContext from "./contexts/AuthContext";
@@ -45,15 +45,16 @@ export default function AppNavigator() {
         component={Home}
         options={{
           headerRight: () => (
-            <Icon.Button
-              name={icons.logout}
-              size={baseStyles.smallIconSize}
-              color={colors.headerTint}
-              backgroundColor={colors.invisible}
-              onPress={authAPI.signOut}
-              style={styles.logout}
-              iconStyle={styles.logoutIcon}
-            />
+            <View style={styles.logoutContainer}>
+              <Icon.Button
+                name={icons.logout}
+                size={baseStyles.smallIconSize}
+                color={colors.headerTint}
+                backgroundColor={colors.invisible}
+                onPress={authAPI.signOut}
+                iconStyle={styles.logoutIcon}
+              />
+            </View>
           ),
         }}
       />
@@ -72,6 +73,9 @@ export default function AppNavigator() {
 }
 
 const styles = StyleSheet.create({
+  logoutContainer: {
+    marginRight: baseStyles.spacing / 4,
+  },
   logoutIcon: {
     marginRight: 0,
   },
