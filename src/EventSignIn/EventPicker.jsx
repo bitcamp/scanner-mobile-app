@@ -2,8 +2,8 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import PropTypes from "prop-types";
 import RNPickerSelect from "react-native-picker-select";
-import { colors, baseStyles, textStyles } from "../styleConfig";
-import { DownArrow } from "../components/Icons";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { colors, baseStyles, textStyles, icons } from "../styleConfig";
 
 /**
  * A dialog to select the event to which users are signing in
@@ -37,10 +37,11 @@ export default function EventPicker({
           }}
         />
       </View>
-      <DownArrow />
+      <Icon name={icons.eventSelector} size={baseStyles.iconSize} />
     </View>
   );
 }
+
 /**
  * The label for the placeholder text
  */
