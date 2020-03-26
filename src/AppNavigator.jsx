@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useMemo } from "react";
-import { StyleSheet } from "react-native";
+import React, { useContext, useEffect } from "react";
+import { StyleSheet, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AuthContext from "./contexts/AuthContext";
@@ -21,9 +21,9 @@ export default function AppNavigator() {
   }, [authAPI]);
 
   // Determine which screen to display based on the authorization status
-  const primaryScreen = useMemo(() => {
+  const getPrimaryScreen = () => {
     // Show a loading screen while fetching the token
-    if (authState.isLoadingToken) {
+    if (!authState || authState.isLoadingToken) {
       return (
         <Stack.Screen
           name="Splash"
@@ -45,20 +45,21 @@ export default function AppNavigator() {
         component={Home}
         options={{
           headerRight: () => (
-            <Icon.Button
-              name={icons.logout}
-              size={baseStyles.smallIconSize}
-              color={colors.headerTint}
-              backgroundColor={colors.invisible}
-              onPress={authAPI.signOut}
-              style={styles.logout}
-              iconStyle={styles.logoutIcon}
-            />
+            <View style={styles.logoutContainer}>
+              <Icon.Button
+                name={icons.logout}
+                size={baseStyles.smallIconSize}
+                color={colors.headerTint}
+                backgroundColor={colors.invisible}
+                onPress={authAPI.signOut}
+                iconStyle={styles.logoutIcon}
+              />
+            </View>
           ),
         }}
       />
     );
-  }, [authAPI.signOut, authState.isLoadingToken, authState.userToken]);
+  };
 
   return (
     <Stack.Navigator
@@ -66,12 +67,15 @@ export default function AppNavigator() {
         header: props => <Header headerProps={props} />,
       }}
     >
-      {primaryScreen}
+      {getPrimaryScreen()}
     </Stack.Navigator>
   );
 }
 
 const styles = StyleSheet.create({
+  logoutContainer: {
+    marginRight: baseStyles.spacing / 4,
+  },
   logoutIcon: {
     marginRight: 0,
   },

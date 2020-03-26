@@ -1,23 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { StyleSheet, View } from "react-native";
 import { RNCamera } from "react-native-camera";
 import { useIsFocused } from "@react-navigation/native";
+import Toast from "react-native-tiny-toast";
 import RegistrationPage from "./RegistrationPage";
 import RegistrationContext, {
   registrationPages,
-  registrationActions,
+  startValidatingQr,
+  scanFailure,
+  qrScanSuccess,
+  resetPrevUser,
 } from "../contexts/RegistrationContext";
 import AuthContext from "../contexts/AuthContext";
 import { validateQRCode } from "../actions/NFCRegistration";
 import QRViewFinder from "./QRViewFinder";
 import Title from "../components/Title";
 import BodyText from "../components/BodyText";
+import { toastOptions } from "../styleConfig";
 
 /**
  * A QR code scanner dialogue
  */
 export default function QRScanner() {
-  const { dispatch } = useContext(RegistrationContext);
+  const {
+    dispatch,
+    state: { prevUserData },
+  } = useContext(RegistrationContext);
   const {
     authState: { userToken },
   } = useContext(AuthContext);
@@ -29,12 +37,6 @@ export default function QRScanner() {
    * @param {string} qrData the data extracted from the qr code
    */
   const handleQRScan = async qrData => {
-    const {
-      startValidatingQr,
-      scanFailure,
-      qrScanSuccess,
-    } = registrationActions;
-
     dispatch({
       type: startValidatingQr,
     });
@@ -46,10 +48,33 @@ export default function QRScanner() {
         payload: userData,
       });
     } catch (e) {
-      // TODO: add error handling
       dispatch({ type: scanFailure, errorInfo: e });
     }
   };
+
+  // Controls whether or not the success toast will attempt to update the context
+  const shouldResetPrevUser = useRef(true);
+
+  // Display a toast if a previous user was successfully scanned
+  useEffect(() => {
+    if (prevUserData) {
+      shouldResetPrevUser.current = true;
+
+      Toast.show(`Checked in ${prevUserData.name}`, {
+        ...toastOptions.success,
+        onHidden: () => {
+          if (shouldResetPrevUser.current) {
+            dispatch({ type: resetPrevUser });
+          }
+        },
+      });
+    }
+
+    return () => {
+      // Handle cases where the QRScanner unmounts while the success toast is active
+      shouldResetPrevUser.current = false;
+    };
+  }, [dispatch, prevUserData]);
 
   return (
     <RegistrationPage title={registrationPages.qrScan}>

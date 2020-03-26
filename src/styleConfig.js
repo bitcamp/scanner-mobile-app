@@ -7,7 +7,9 @@ const pallete = {
   black: "black",
   primary: "#1b2e34",
   disabled: "#777",
+  cancel: "#aaa",
   error: "#f54242",
+  success: "#14c443",
 };
 
 export const colors = {
@@ -21,10 +23,18 @@ export const colors = {
   background: pallete.white,
   lightText: pallete.white,
   darkText: pallete.black,
+  title: pallete.primary,
   disabled: pallete.disabled,
+  cancel: pallete.cancel,
   error: pallete.error,
+  success: pallete.success,
   headerBackground: pallete.primary,
   headerTint: pallete.white,
+};
+
+export const statusBarStyles = {
+  backgroundColor: colors.headerBackground,
+  barStyle: "light-content",
 };
 
 export const textStyles = {
@@ -44,22 +54,42 @@ export const baseStyles = {
   smallIconSize: 25,
 };
 
+const toastDefaultTextStyle = {
+  fontFamily: textStyles.bodyFont,
+  color: colors.lightText,
+};
+const toastDefaultStyle = {
+  maxWidth: "80%",
+};
+const toastDefaultSettings = {
+  duration: 1250,
+};
+
 export const toastOptions = {
   error: {
+    ...toastDefaultSettings,
     containerStyle: {
+      ...toastDefaultStyle,
       backgroundColor: colors.error,
-      maxWidth: "80%",
     },
-    textStyle: {
-      fontFamily: textStyles.bodyFont,
-      color: colors.lightText,
+    textStyle: toastDefaultTextStyle,
+    duration: 2500,
+  },
+  success: {
+    ...toastDefaultSettings,
+    containerStyle: {
+      ...toastDefaultStyle,
+      backgroundColor: colors.success,
     },
+    textStyle: toastDefaultTextStyle,
+    position: -75,
   },
 };
 
 export const icons = {
   eventSelector: "chevron-down",
   logout: "logout",
+  reload: "refresh",
   "Event Sign In": "account-check",
   "Check In": "qrcode-scan",
 };

@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
-import { Button, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import RegistrationPage from "./RegistrationPage";
 import RegistrationContext, {
   registrationPages,
-  registrationActions,
+  confirmUserData,
 } from "../contexts/RegistrationContext";
-import { colors } from "../styleConfig";
+import { baseStyles, textStyles } from "../styleConfig";
 import BodyText from "../components/BodyText";
+import RejectAcceptButtons from "./RejectAcceptButtons";
 
 /**
  * A detailed summary of a user's data
@@ -19,23 +20,14 @@ export default function UserDataReview() {
 
   return (
     <RegistrationPage title={registrationPages.userDataReview}>
-      {/* TODO: make a better user display once the backend response is finalized */}
       {userData && (
-        <View>
-          <BodyText>Is this {userData.name}?</BodyText>
-          <View style={styles.buttonContainer}>
-            <Button
-              title="No"
-              onPress={() => dispatch({ type: registrationActions.reset })}
-            />
-            <Button
-              title="Yes"
-              color={colors.primary}
-              onPress={() =>
-                dispatch({ type: registrationActions.confirmUserData })
-              }
-            />
-          </View>
+        <View style={styles.page}>
+          <BodyText style={styles.userData}>Is this {userData.name}?</BodyText>
+          <RejectAcceptButtons
+            acceptAction={() => dispatch({ type: confirmUserData })}
+            acceptText="Yes"
+            rejectText="No"
+          />
         </View>
       )}
     </RegistrationPage>
@@ -43,9 +35,14 @@ export default function UserDataReview() {
 }
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 10,
+  page: {
+    alignSelf: "stretch",
+    flex: 1,
+    justifyContent: "space-between",
+  },
+  userData: {
+    fontSize: textStyles.medium,
+    padding: baseStyles.spacing,
+    textAlign: "center",
   },
 });

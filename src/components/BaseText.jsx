@@ -8,7 +8,14 @@ import { colors } from "../styleConfig";
  */
 export default function BaseText({ children, defaultStyle, style, light }) {
   return (
-    <Text style={[defaultStyle, light ? styles.light : styles.dark, style]}>
+    <Text
+      style={[
+        styles.baseText,
+        defaultStyle,
+        light ? styles.light : null,
+        style,
+      ]}
+    >
       {children}
     </Text>
   );
@@ -29,7 +36,7 @@ BaseText.defaultProps = {
 };
 
 const styles = StyleSheet.create({
-  dark: {
+  baseText: {
     color: colors.darkText,
   },
   light: {

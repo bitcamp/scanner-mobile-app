@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Text, StyleSheet } from "react-native";
-import { textStyles, baseStyles } from "../styleConfig";
+import { textStyles, baseStyles, colors } from "../styleConfig";
 import BaseText from "./BaseText";
 
 /**
@@ -29,6 +29,7 @@ Title.defaultProps = {
 
 const styles = StyleSheet.create({
   title: {
+    color: colors.title,
     fontFamily: textStyles.titleFont,
     fontSize: textStyles.large,
     padding: baseStyles.spacing,

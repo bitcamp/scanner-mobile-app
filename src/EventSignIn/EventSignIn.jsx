@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { StyleSheet } from "react-native";
 import Screen from "../components/Screen";
 import Title from "../components/Title";
@@ -19,23 +19,28 @@ export default function EventSignIn() {
   const [fetchError, setFetchError] = useState(null);
 
   /**
+   * Attempts to get the events list, and adjusts the component state accordingly
+   */
+  const getEvents = useCallback(async () => {
+    setEvents([]);
+    setEventsLoaded(null);
+    setFetchError(null);
+
+    try {
+      setEvents(await fetchEvents());
+      setEventsLoaded(true);
+    } catch (e) {
+      setEventsLoaded(false);
+      setFetchError(e);
+    }
+  }, []);
+
+  /**
    * Fetch the events list when this component renders
    */
   useEffect(() => {
-    const getEvents = async () => {
-      try {
-        // TODO: replace with actual fetch call
-        setEvents(await fetchEvents());
-        setEventsLoaded(true);
-      } catch (e) {
-        // TODO: add in error validation
-        setEventsLoaded(false);
-        setFetchError(e);
-      }
-    };
-
     getEvents();
-  });
+  }, [getEvents]);
 
   return eventsLoaded ? (
     <Screen style={styles.containerStyle}>
@@ -54,7 +59,11 @@ export default function EventSignIn() {
       </TextButton>
     </Screen>
   ) : (
-    <EventLoader error={fetchError} loadingState={eventsLoaded} />
+    <EventLoader
+      error={fetchError}
+      loadingState={eventsLoaded}
+      onReload={getEvents}
+    />
   );
 }
 
