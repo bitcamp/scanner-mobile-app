@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Button } from "react-native";
 import RegistrationPage from "./RegistrationPage";
 import RegistrationContext, {
   registrationPages,
@@ -7,9 +6,8 @@ import RegistrationContext, {
   scanFailure,
   nfcRegistrationSuccess,
 } from "../contexts/RegistrationContext";
-import { colors } from "../styleConfig";
 import { registerNfcBand } from "../actions/NFCRegistration";
-import CancelButton from "./CancelButton";
+import RejectAcceptButtons from "./RejectAcceptButtons";
 
 /**
  * The NFC Scanning dialogue
@@ -37,12 +35,11 @@ export default function NFCScanner() {
 
   return (
     <RegistrationPage title={registrationPages.nfcScan}>
-      <Button
-        onPress={() => handleNFCScan("randomString")}
-        title="Scan NFC Code"
-        color={colors.primary}
+      <RejectAcceptButtons
+        acceptAction={handleNFCScan}
+        acceptText="Scan Wristband"
+        rejectText="Exit"
       />
-      <CancelButton />
     </RegistrationPage>
   );
 }

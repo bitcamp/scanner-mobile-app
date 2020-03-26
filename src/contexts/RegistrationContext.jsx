@@ -108,8 +108,10 @@ export const registrationPages = {
 
 /** The initial state of the context */
 const initialState = {
-  activePage: registrationPages.qrScan,
-  userData: null,
+  activePage: registrationPages.userDataReview,
+  userData: {
+    name: "hi",
+  },
   prevUserData: null,
   errorInfo: null,
 };
