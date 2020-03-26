@@ -3,7 +3,9 @@ import { Button } from "react-native";
 import RegistrationPage from "./RegistrationPage";
 import RegistrationContext, {
   registrationPages,
-  registrationActions,
+  startRegisteringNfc,
+  scanFailure,
+  nfcRegistrationSuccess,
 } from "../contexts/RegistrationContext";
 import { colors } from "../styleConfig";
 import { registerNfcBand } from "../actions/NFCRegistration";
@@ -23,19 +25,12 @@ export default function NFCScanner() {
    * @param {string} nfcData the data extracted from the nfc wristband
    */
   const handleNFCScan = async nfcData => {
-    const {
-      startRegisteringNfc,
-      scanFailure,
-      nfcRegistrationSuccess,
-    } = registrationActions;
-
     dispatch({ type: startRegisteringNfc });
 
     try {
       await registerNfcBand(nfcData, userToken);
       dispatch({ type: nfcRegistrationSuccess });
     } catch (e) {
-      // TODO: add error handling
       dispatch({ type: scanFailure, errorInfo: e });
     }
   };

@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 import { Button, View, StyleSheet } from "react-native";
-import RegistrationContext, {
-  registrationActions,
-} from "../contexts/RegistrationContext";
+import RegistrationContext, { reset } from "../contexts/RegistrationContext";
 
 /**
  * Allows you to go back to the starting page of the nfc
@@ -12,10 +10,7 @@ export default function CancelButton() {
   const { dispatch } = useContext(RegistrationContext);
   return (
     <View style={styles.container}>
-      <Button
-        title="Cancel"
-        onPress={() => dispatch({ type: registrationActions.reset })}
-      />
+      <Button title="Cancel" onPress={() => dispatch({ type: reset })} />
     </View>
   );
 }

@@ -7,56 +7,81 @@ import { IllegalArgumentError } from "../actions/errors";
  */
 const RegistrationContext = createContext();
 
+// Registration reducer action types
+export const startValidatingQr = "START VALIDATING QR";
+export const startRegisteringNfc = "START REGISTERING NFC";
+export const qrScanSuccess = "QR SCAN SUCCESS";
+export const nfcRegistrationSuccess = "NFC SCAN SUCCESS";
+export const confirmUserData = "CONFIRM USER DATA";
+export const resetPrevUser = "RESET LAST USER";
+export const scanFailure = "SCAN FAILURE";
+export const reset = "RESET";
+
+/**
+ * Handles the registration flow for a new user
+ * @param {*} prevState
+ * @param {*} action
+ */
+function registrationReducer(prevState, action) {
+  switch (action.type) {
+    case startValidatingQr:
+      return {
+        ...prevState,
+        activePage: registrationPages.loading,
+      };
+
+    case startRegisteringNfc:
+      return {
+        ...prevState,
+        activePage: registrationPages.loading,
+      };
+
+    case qrScanSuccess:
+      return {
+        ...prevState,
+        userData: action.payload,
+        activePage: registrationPages.userDataReview,
+      };
+
+    case confirmUserData:
+      return {
+        ...prevState,
+        activePage: registrationPages.nfcScan,
+      };
+
+    case scanFailure:
+      return {
+        ...prevState,
+        activePage: registrationPages.error,
+        errorInfo: action.errorInfo,
+      };
+
+    case nfcRegistrationSuccess:
+      return {
+        ...initialState,
+        prevUserData: prevState.userData,
+      };
+
+    case resetPrevUser:
+      return {
+        ...prevState,
+        prevUserData: null,
+      };
+
+    case reset:
+      return initialState;
+
+    default:
+      throw new IllegalArgumentError(`Unhandled action type: ${action.type}`);
+  }
+}
+
 /**
  * Provides the current state of the NFC registration flow and
  * the dispatcher to any children
  */
 export function RegistrationProvider({ children }) {
-  const [state, dispatch] = useReducer((prevState, action) => {
-    switch (action.type) {
-      case registrationActions.startValidatingQr:
-        return {
-          ...prevState,
-          activePage: registrationPages.loading,
-          userData: null,
-          error: null,
-        };
-
-      case registrationActions.startRegisteringNfc:
-        return {
-          ...prevState,
-          activePage: registrationPages.loading,
-          error: null,
-        };
-
-      case registrationActions.qrScanSuccess:
-        return {
-          ...prevState,
-          userData: action.payload,
-          activePage: registrationPages.userDataReview,
-        };
-
-      case registrationActions.confirmUserData:
-        return {
-          ...prevState,
-          activePage: registrationPages.nfcScan,
-        };
-
-      case registrationActions.scanFailure:
-        return {
-          ...prevState,
-          activePage: registrationPages.error,
-          errorInfo: action.errorInfo,
-        };
-
-      case registrationActions.nfcRegistrationSuccess:
-      case registrationActions.reset:
-        return initialState;
-
-      default:
-        throw new IllegalArgumentError(`Unhandled action type: ${action.type}`);
-    }
-  }, initialState);
+  const [state, dispatch] = useReducer(registrationReducer, initialState);
 
   return (
     <RegistrationContext.Provider value={{ state, dispatch }}>
@@ -78,29 +103,14 @@ export const registrationPages = {
   /** The loading screen */
   loading: "LOADING",
   /** The error screen */
-  error: "Error",
-};
-
-/** An enum with each type of action for this reducer */
-export const registrationActions = {
-  /** This action fires when qr validation starts */
-  startValidatingQr: "START VALIDATING QR",
-  /** This action fires when nfc registration starts */
-  startRegisteringNfc: "START REGISTERING NFC",
-  /** This action fires when qr validation succeeds */
-  qrScanSuccess: "QR SCAN SUCCESS",
-  /** This action fires when nfc registration succeeds */
-  nfcRegistrationSuccess: "NFC SCAN FAILURE",
-  /** This action fires when an organizer confirms the scanned user data */
-  confirmUserData: "CONFIRM USER DATA",
-  /** This action fires when the registration flow is reset */
-  reset: "RESET",
+  error: "ERROR",
 };
 
 /** The initial state of the context */
 const initialState = {
   activePage: registrationPages.qrScan,
   userData: null,
+  prevUserData: null,
   errorInfo: null,
 };
 

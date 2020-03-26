@@ -21,9 +21,9 @@ export default function AppNavigator() {
   }, [authAPI]);
 
   // Determine which screen to display based on the authorization status
-  const primaryScreen = useMemo(() => {
+  const getPrimaryScreen = () => {
     // Show a loading screen while fetching the token
-    if (authState.isLoadingToken) {
+    if (!authState || authState.isLoadingToken) {
       return (
         <Stack.Screen
           name="Splash"
@@ -59,7 +59,7 @@ export default function AppNavigator() {
         }}
       />
     );
-  }, [authAPI.signOut, authState.isLoadingToken, authState.userToken]);
+  };
 
   return (
     <Stack.Navigator
@@ -67,7 +67,7 @@ export default function AppNavigator() {
         header: props => <Header headerProps={props} />,
       }}
     >
-      {primaryScreen}
+      {getPrimaryScreen()}
     </Stack.Navigator>
   );
 }

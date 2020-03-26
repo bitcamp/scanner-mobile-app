@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import RegistrationContext, {
   registrationPages,
+  reset,
 } from "../contexts/RegistrationContext";
 import RegistrationPage from "./RegistrationPage";
 import ErrorScreen from "../components/ErrorScreen";
@@ -11,11 +12,15 @@ import ErrorScreen from "../components/ErrorScreen";
 export default function ErrorPage() {
   const {
     state: { errorInfo },
+    dispatch,
   } = useContext(RegistrationContext);
 
   return (
     <RegistrationPage title={registrationPages.error}>
-      <ErrorScreen error={errorInfo} />
+      <ErrorScreen
+        error={errorInfo}
+        reloadAction={() => dispatch({ type: reset })}
+      />
     </RegistrationPage>
   );
 }
