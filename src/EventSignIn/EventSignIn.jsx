@@ -3,11 +3,11 @@ import { StyleSheet } from "react-native";
 import Screen from "../components/Screen";
 import Title from "../components/Title";
 import { fetchEvents, attendEvent } from "../actions/EventSignIn";
-import { baseStyles } from "../styleConfig";
+import { baseStyles, textStyles } from "../styleConfig";
 import TextButton from "../components/TextButton";
 import EventPicker, { placeholderText } from "./EventPicker";
-import ScanningDirections from "./ScanningDirections";
 import EventLoader from "./EventLoader";
+import NfcScanDirections from "../components/NfcScanDirections";
 
 /**
  * The screen for signing users into events by scanning their NFC wristband
@@ -50,7 +50,10 @@ export default function EventSignIn() {
         selectedEvent={selectedEvent}
         onEventSelection={setSelectedEvent}
       />
-      <ScanningDirections />
+      <NfcScanDirections
+        scannerIsActive={selectedEvent !== placeholderText}
+        inactiveText="Please choose an event from the dropdown above"
+      />
       <TextButton
         onPress={() => attendEvent("TODO: PUT NFC CODE HERE", selectedEvent)}
         disabled={selectedEvent === placeholderText}

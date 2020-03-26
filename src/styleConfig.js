@@ -30,6 +30,7 @@ export const colors = {
   success: pallete.success,
   headerBackground: pallete.primary,
   headerTint: pallete.white,
+  nfcScanBar: pallete.error,
 };
 
 export const statusBarStyles = {
@@ -52,6 +53,7 @@ export const baseStyles = {
   spacing: 20,
   iconSize: 30,
   smallIconSize: 25,
+  prominentIconSize: 200,
 };
 
 const toastDefaultTextStyle = {
@@ -90,6 +92,7 @@ export const icons = {
   eventSelector: "chevron-down",
   logout: "logout",
   reload: "refresh",
+  nfc: "nfc-variant",
   "Event Sign In": "account-check",
   "Check In": "qrcode-scan",
 };
