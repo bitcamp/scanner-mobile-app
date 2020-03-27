@@ -36,7 +36,7 @@ export default function QRScanner() {
    * Attempts to validate the provided QR code
    * @param {string} qrData the data extracted from the qr code
    */
-  const handleQRScan = async qrData => {
+  const handleQRScan = async (qrData) => {
     dispatch({
       type: startValidatingQr,
     });

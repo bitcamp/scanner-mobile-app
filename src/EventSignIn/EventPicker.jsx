@@ -1,9 +1,13 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, YellowBox } from "react-native";
 import PropTypes from "prop-types";
 import RNPickerSelect from "react-native-picker-select";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { colors, baseStyles, textStyles, icons } from "../styleConfig";
+
+// TODO: Stop ignoring this warning once RNPickerSelect migrates to
+// `@react-native-community/picker`
+YellowBox.ignoreWarnings(["Picker has been extracted from react-native core"]);
 
 /**
  * A dialog to select the event to which users are signing in
@@ -17,7 +21,7 @@ export default function EventPicker({
     <View style={styles.pickerContainer}>
       <View style={styles.inputContainer}>
         <RNPickerSelect
-          onValueChange={eventChoice => onEventSelection(eventChoice)}
+          onValueChange={(eventChoice) => onEventSelection(eventChoice)}
           useNativeAndroidPickerStyle={false}
           placeholder={{
             label: placeholderText,

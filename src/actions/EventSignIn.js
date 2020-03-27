@@ -28,5 +28,6 @@ export async function fetchEvents() {
  * @param {string|number} eventId The id of the event to which the user is signing in
  */
 export async function attendEvent(userId, eventId) {
-  console.warn("Signing user into", eventId);
+  // eslint-disable-next-line no-console
+  console.warn("Signing user into", eventId); // TODO: REMOVE once the API request is implemented
 }

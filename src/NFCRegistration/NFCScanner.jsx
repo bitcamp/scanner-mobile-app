@@ -25,7 +25,7 @@ export default function NFCScanner() {
    * Attempts to validate the provided NFC data
    * @param {string} nfcData the data extracted from the nfc wristband
    */
-  const handleNFCScan = async nfcData => {
+  const handleNFCScan = async (nfcData) => {
     dispatch({ type: startRegisteringNfc });
 
     try {
