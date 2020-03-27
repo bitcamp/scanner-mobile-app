@@ -108,7 +108,7 @@ export const registrationPages = {
 
 /** The initial state of the context */
 const initialState = {
-  activePage: registrationPages.userDataReview,
+  activePage: registrationPages.qrScan,
   userData: {
     name: "hi",
   },

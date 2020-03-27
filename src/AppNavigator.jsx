@@ -64,7 +64,7 @@ export default function AppNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
-        header: props => <Header headerProps={props} />,
+        header: (props) => <Header headerProps={props} />,
       }}
     >
       {getPrimaryScreen()}

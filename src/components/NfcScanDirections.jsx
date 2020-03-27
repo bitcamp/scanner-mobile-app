@@ -38,12 +38,14 @@ export default function NfcScanDirections({
             toValue: scanBarEnd,
             easing: scanBarTiming,
             duration: 2000,
+            useNativeDriver: false,
           }),
           // Go back to the top of the icon
           Animated.timing(scanAnim, {
             toValue: scanBarStart,
             easing: scanBarTiming,
             duration: 2000,
+            useNativeDriver: false,
           }),
         ])
       ).start();
@@ -53,6 +55,7 @@ export default function NfcScanDirections({
         toValue: scanBarStart,
         duration: 300,
         easing: scanBarTiming,
+        useNativeDriver: false,
       }).start();
     }
   }, [scanAnim, scannerIsActive]);

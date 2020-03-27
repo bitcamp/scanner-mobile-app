@@ -13,10 +13,7 @@ import BodyText from "../components/BodyText";
  * The schema for the login data
  */
 const LoginSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Not a valid email")
-    .required("Email is required"),
+  email: yup.string().email("Not a valid email").required("Email is required"),
   password: yup.string().required("Password is required"),
 });
 

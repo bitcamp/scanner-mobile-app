@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import Screen from "../components/Screen";
 import Title from "../components/Title";
 import { fetchEvents, attendEvent } from "../actions/EventSignIn";
-import { baseStyles, textStyles } from "../styleConfig";
+import { baseStyles } from "../styleConfig";
 import TextButton from "../components/TextButton";
 import EventPicker, { placeholderText } from "./EventPicker";
 import EventLoader from "./EventLoader";

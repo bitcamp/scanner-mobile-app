@@ -9,6 +9,8 @@ import { NetworkError, AuthorizationError } from "./errors";
  * @throws {NetworkError} if requests completes with a bad status code
  * @throws {Error} if there is an error fetching or parsing the response
  */
+// TODO: take out this eslint rule once logIn is actually implemented
+// eslint-disable-next-line no-unused-vars
 export default async function logIn(username, password) {
   // TODO: replace with an actual fetch call
   const response = {
